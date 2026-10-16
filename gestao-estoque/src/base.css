@@ -18,7 +18,9 @@ body{
 }
 
 .controle-container{
-    width: fit-content;
+    max-width: 100%;
+    width: 50em;
+    box-sizing: border-box;
     padding: 20px;
     background-color: aliceblue;
     display: flex;
@@ -109,9 +111,14 @@ body{
     font-weight: bold;
 }
 
+.produtos-cadastrados button:hover{
+    background-color: #16A34A;
+}
+
 .menu-navegacao{
     display: flex;
     gap: 0.5em;
+    width: 100%;
 }
 .menu-navegacao a{
     text-decoration: none;
@@ -119,9 +126,11 @@ body{
     flex-direction: column;
     justify-content: center;
     gap: 5px;
+    max-width: 100%;
     width: 250px;
     color:black;
     min-height: 60px;
+    box-sizing: border-box;
 }
 
 .menu-navegacao a:hover{
