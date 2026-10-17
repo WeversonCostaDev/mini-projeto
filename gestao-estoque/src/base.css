@@ -26,6 +26,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    margin: 0 auto;
 }
 
 .titulos-container {
@@ -148,6 +149,7 @@ body {
     .menu-navegacao {
         flex-direction: column;
     }
+
     .menu-navegacao a {
         width: 100%;
     }
@@ -185,25 +187,25 @@ body {
     color: goldenrod;
 }
 
-#editar,
-#excluir {
+.editar,
+.excluir {
     cursor: pointer;
     width: 0.9em;
 }
 
-#editar:hover {
+.editar:hover {
     color: #7e7cf3;
 }
 
-#excluir:hover {
+.excluir:hover {
     color: #f36a6a;
 }
 
-#editar {
+.editar {
     color: blue;
 
 }
 
-#excluir {
+.excluir {
     color: red;
 }

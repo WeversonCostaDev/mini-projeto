@@ -1,0 +1,84 @@
+:root {
+    --borda-campos: #D1D5DB;
+    --texto-principal: #1F2937;
+    --texto-secundario: #6B7280;
+    --texto-placeholder: #9CA3AF;
+    --borda-ao-focar: #16A34A;
+}
+
+.modal {
+    margin: 0 auto;
+    max-width: 100%;
+    width: 50em;
+    box-sizing: border-box;
+    padding: 20px;
+    border: 1px solid var(--borda-campos);
+    border-radius: 10px;
+
+}
+
+.modal header>div {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.modal .icone {
+    width: 1.5em;
+}
+
+.formulario-produto {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+        "campo-1 campo-2"
+        "campo-3 campo-4"
+        "previa previa"
+        "botoes botoes";
+    gap: 10px;
+}
+
+#campo-1 {
+    grid-area: campo-1;
+}
+
+#campo-2 {
+    grid-area: campo-2;
+}
+
+#campo-3 {
+    grid-area: campo-3;
+}
+
+#campo-4 {
+    grid-area: campo-4;
+}
+
+.previa {
+    grid-area: previa;
+}
+
+.botoes-container {
+    grid-area: botoes;
+}
+
+.campo-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
+}
+
+.campo-container label {
+    color: var(--texto-principal);
+    font-weight: bold;
+    font-size: 0.95em;
+}
+
+.campo-container input {
+    padding: 10px;
+    border: 1px solid var(--borda-campos);
+    border-radius: 5px;
+    color: var(--texto-placeholder);
+}
+

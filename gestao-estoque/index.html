@@ -1,57 +1,139 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="stylesheet" href="/src/base.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>gestao-estoque</title>
-  </head>
-  <body>
-    <div id="app">
-        <div class="controle-container">
-          <header>
-            <div class="topo-header">
-              <svg class="logo" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-box preview-icon"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
-              <div class="titulos-container">
-                <h3>Controle de Estoque</h3>
-                <span>Gerenciamento de produtos</span>
-              </div>
-            </div>
-          
 
-            <nav class="menu-navegacao">
-              <a href="">
-                <svg class="icone" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-box preview-icon"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
-                <span class="quantidade">24</span>
-                <span class="item">Produtos</span>
-              </a>
-              <a href="">
-                <svg class="icone" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layers preview-icon"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></svg>
-                <span class="quantidade">156</span>
-                <span class="item">Unidades</span>
-              </a>
-              <a href="">
-                <svg class="icone-warning" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-triangle-alert preview-icon"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
-                <span class="quantidade">3</span>
-                <span class="item">Estoque baixo</span>
-              </a>
-            </nav>
-          </header>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="/src/base.css">
+  <link rel="stylesheet" href="/src/formulario.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>gestao-estoque</title>
+</head>
 
-          <main>
-            <div id="area-produtos">
-              <div class="produtos-cadastrados">
-                <h3>Produtos cadastrados</h3>
-                <button>
-                  + Novo produto
-                </button>
-              </div>
-            </div>
-          </main>
+<body>
+  <div id="app">
+    <div class="controle-container">
+      <header>
+        <div class="topo-header">
+          <svg class="logo" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-box preview-icon">
+            <path
+              d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" />
+            <path d="m3.3 7 8.7 5 8.7-5" />
+            <path d="M12 22V12" />
+          </svg>
+          <div class="titulos-container">
+            <h3>Controle de Estoque</h3>
+            <span>Gerenciamento de produtos</span>
+          </div>
         </div>
+
+
+        <nav class="menu-navegacao">
+          <a href="">
+            <svg class="icone" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-box preview-icon">
+              <path
+                d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" />
+              <path d="m3.3 7 8.7 5 8.7-5" />
+              <path d="M12 22V12" />
+            </svg>
+            <span class="quantidade">24</span>
+            <span class="item">Produtos</span>
+          </a>
+          <a href="">
+            <svg class="icone" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-layers preview-icon">
+              <path
+                d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z" />
+              <path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12" />
+              <path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17" />
+            </svg>
+            <span class="quantidade">156</span>
+            <span class="item">Unidades</span>
+          </a>
+          <a href="">
+            <svg class="icone-warning" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-triangle-alert preview-icon">
+              <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" />
+              <path d="M12 9v4" />
+              <path d="M12 17h.01" />
+            </svg>
+            <span class="quantidade">3</span>
+            <span class="item">Estoque baixo</span>
+          </a>
+        </nav>
+      </header>
+
+      <main>
+        <div id="area-produtos">
+          <div class="produtos-cadastrados">
+            <h3>Produtos cadastrados</h3>
+            <button>
+              + Novo produto
+            </button>
+          </div>
+        </div>
+      </main>
     </div>
+    <section>
+      <div class="modal">
+        <header class="header">
+          <div>
+            <h3>Novo Produto</h3>
+            <img class="icone" src="/icons/box+.svg" alt="icone de caixa" />
+          </div>
+        </header>
 
-    <script type="module" src="/src/main.ts"></script>
+        <form class="formulario-produto">
+          <div id="campo-1" class="campo-container">
+            <label for="nome">Nome do produto</label>
+            <input type="text" name="nome" id="nome" placeholder="Ex.: Mouse gamer" required>
+          </div>
 
-  </body>
+          <div id="campo-2" class="campo-container">
+            <label for="quantidade">Quantidade</label>
+            <input type="number" name="quantidade" id="quantidade" placeholder="Ex.: 10" required>
+          </div>
+
+          <div id="campo-3" class="campo-container">
+            <label for="preco">Preço</label>
+            <input type="number" name="preco" id="preco" placeholder="Ex.: 100.00" required>
+          </div>
+
+          <div id="campo-4" class="campo-container">
+            <label for="icone">Ícone</label>
+            <input type="file" name="icone" id="icone" placeholder="Ex.: Selecionar" required>
+          </div>
+
+          <div class="previa">
+            <span>Prévia do produto</span>
+            <div>
+              <img class="preview-image" src="/icons/teclado.svg" alt="Prévia do produto">
+              <div>
+                <h4 id="preview-nome">Nome do produto</h4>
+                <span id="preview-preco">0,00</span>
+                <span id="preview-quantidade"></span>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="botoes-container">
+            <button type="submit">Cadastrar</button>
+            <button type="button" class="cancelar">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+  </div>
+
+  <script type="module" src="/src/main.ts"></script>
+
+</body>
+
 </html>
