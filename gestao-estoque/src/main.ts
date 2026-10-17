@@ -21,7 +21,7 @@ const produtos: produto[] = [
         nome: "Headphone",
         preco: 360.00,
         emEstoque: true,
-        quantidade: 42,
+        quantidade: 2,
         icone: "/icons/headphones.svg",
     },
     {
@@ -34,10 +34,10 @@ const produtos: produto[] = [
     },
 ];
 
-function atualizaContagem(produtos: produto []):void{
+function atualizaContagem(produtos: produto[]): void {
     const quantidades = document.querySelectorAll(".menu-navegacao .quantidade");
     quantidades[0].textContent = `${produtos.length}`;
-    
+
 
     const totalUnidades = produtos.reduce(
         (total, produto) => total + produto.quantidade, 0);
@@ -52,19 +52,19 @@ function atualizaContagem(produtos: produto []):void{
 
 }
 
-function exibirProdutos(produtos: produto[]){
+function exibirProdutos(produtos: produto[]) {
     const areaProdutos = document.getElementById("area-produtos");
 
-    if(!areaProdutos) throw new Error("Elemento #area-produtos não encontrado!");
+    if (!areaProdutos) throw new Error("Elemento #area-produtos não encontrado!");
     produtos.forEach(produto => exibirProduto(produto, areaProdutos));
 }
 
-function exibirProduto(produto: produto, areaProdutos: HTMLElement): void{
+function exibirProduto(produto: produto, areaProdutos: HTMLElement): void {
     const card = document.createElement("div");
     card.classList.add("card-produto");
 
-    card.innerHTML = 
-    `
+    card.innerHTML =
+        `
     <div>
         <img class="icone icone-produto" src="${produto.icone}" alt="icone ${produto.nome}">
         <div>
