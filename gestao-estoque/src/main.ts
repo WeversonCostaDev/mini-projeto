@@ -1,38 +1,5 @@
-type produto = {
-    id: number,
-    nome: string,
-    preco: number,
-    emEstoque: boolean,
-    quantidade: number,
-    icone: string,
-}
-
-const produtos: produto[] = [
-    {
-        id: 1,
-        nome: "Mouse",
-        preco: 200.00,
-        emEstoque: true,
-        quantidade: 30,
-        icone: "/icons/mouse.svg",
-    },
-    {
-        id: 2,
-        nome: "Headphone",
-        preco: 360.00,
-        emEstoque: true,
-        quantidade: 2,
-        icone: "/icons/headphones.svg",
-    },
-    {
-        id: 3,
-        nome: "Teclado",
-        preco: 240.00,
-        emEstoque: true,
-        quantidade: 13,
-        icone: "/icons/teclado.svg",
-    },
-];
+import type {produto} from "./types/produto.ts";
+import {produtos} from "./types/produto.ts";
 
 function atualizaContagem(produtos: produto[]): void {
     const quantidades = document.querySelectorAll(".menu-navegacao .quantidade");
@@ -52,10 +19,19 @@ function atualizaContagem(produtos: produto[]): void {
 
 }
 
-function exibirProdutos(produtos: produto[]) {
+function recarregarItens(){
+    const botao = document.getElementById("recarrega-itens");
+    if(!botao) throw new Error("Elemento de id #recarrega-itens não encontrado");
+
+    botao.addEventListener("click", () => exibirProdutos(produtos));
+    botao.addEventListener("click", () => atualizaContagem(produtos));
+}   
+
+function exibirProdutos(produtos: produto[]):void {
     const areaProdutos = document.getElementById("area-produtos");
 
-    if (!areaProdutos) throw new Error("Elemento #area-produtos não encontrado!");
+    if (!areaProdutos) throw new Error("Elemento de id #area-produtos não encontrado!");
+    areaProdutos.innerHTML="";
     produtos.forEach(produto => exibirProduto(produto, areaProdutos));
 }
 
@@ -83,3 +59,4 @@ function exibirProduto(produto: produto, areaProdutos: HTMLElement): void {
 
 exibirProdutos(produtos);
 atualizaContagem(produtos);
+recarregarItens();

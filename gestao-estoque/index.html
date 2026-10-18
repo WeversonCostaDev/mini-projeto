@@ -26,6 +26,9 @@
             <h3>Controle de Estoque</h3>
             <span>Gerenciamento de produtos</span>
           </div>
+          <button id="recarrega-itens">
+            Recarregar
+          </button>
         </div>
 
 
@@ -96,12 +99,12 @@
 
           <div id="campo-2" class="campo-container">
             <label for="quantidade">Quantidade</label>
-            <input type="number" name="quantidade" id="quantidade" placeholder="Ex.: 10" required>
+            <input type="number" min="1" name="quantidade" id="quantidade" placeholder="Ex.: 10" required>
           </div>
 
           <div id="campo-3" class="campo-container">
             <label for="preco">Preço</label>
-            <input type="number" name="preco" id="preco" placeholder="Ex.: 100.00" required>
+            <input type="number" min="1" name="preco" id="preco" placeholder="Ex.: 100.00" required>
           </div>
 
           <div id="campo-4" class="campo-container">
@@ -110,21 +113,20 @@
           </div>
 
           <div class="previa">
-            <span>Prévia do produto</span>
-            <div>
-              <img class="preview-image" src="/icons/teclado.svg" alt="Prévia do produto">
+            <h6>Prévia do produto</h6>
+            <div class="previa-info">
+              <img class="previa-imagem" src="/icons/teclado.svg" alt="Prévia do produto">
               <div>
                 <h4 id="preview-nome">Nome do produto</h4>
-                <span id="preview-preco">0,00</span>
-                <span id="preview-quantidade"></span>
+                <span id="previa-preco">R$ 0,00</span>
+                <span id="previa-quantidade">0 unidades em estoque</span>
               </div>
             </div>
-
           </div>
 
           <div class="botoes-container">
-            <button type="submit">Cadastrar</button>
             <button type="button" class="cancelar">Cancelar</button>
+            <button type="submit" class="cadastrar">Cadastrar</button>
           </div>
         </form>
       </div>
@@ -133,6 +135,7 @@
   </div>
 
   <script type="module" src="/src/main.ts"></script>
+  <script type="module" src="/src/formulario.ts"></script>
 
 </body>
 

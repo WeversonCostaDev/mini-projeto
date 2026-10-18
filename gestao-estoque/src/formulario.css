@@ -1,9 +1,10 @@
 :root {
     --borda-campos: #D1D5DB;
-    --texto-principal: #1F2937;
+    --texto-principal: #2c333d;
     --texto-secundario: #6B7280;
     --texto-placeholder: #9CA3AF;
     --borda-ao-focar: #16A34A;
+    --branco: #fff;
 }
 
 .modal {
@@ -26,6 +27,7 @@
 .modal .icone {
     width: 1.5em;
 }
+
 
 .formulario-produto {
     display: grid;
@@ -52,6 +54,19 @@
 
 #campo-4 {
     grid-area: campo-4;
+}
+
+@media (max-width: 480px) {
+    .formulario-produto {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-areas:
+            "campo-1"
+            "campo-2"
+            "campo-3"
+            "campo-4"
+            "previa"
+            "botoes";
+    }
 }
 
 .previa {
@@ -82,3 +97,68 @@
     color: var(--texto-placeholder);
 }
 
+.previa{
+    margin: 20px 0;
+}
+
+.previa-info{
+    display: flex;
+    gap: 10px;
+    margin: 10px 0;
+    align-items: center;
+}
+.previa h6{
+    font-size: 0.8em;
+    color: var(--texto-secundario);
+    text-transform: uppercase;   
+}
+.previa .previa-imagem{
+    background-color: var(--fundo-icones);
+    max-height: 25px;
+    padding: 15px;
+    border-radius: 5px;
+}
+.previa-info>div{
+    display: flex;
+    flex-direction: column;
+    gap:5px;
+}
+.previa-info #previa-preco{
+    font-size: 1.2em;
+    font-weight: bold;
+}
+.previa-info #previa-quantidade{
+    color: var(--texto-secundario);
+    font-size: 0.8em;
+}
+
+.botoes-container{
+    display: flex;
+    gap: 10px;
+    justify-content: end;
+}
+
+.botoes-container button{
+    padding: 15px;
+    border-radius: 5px;
+    border: none;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.botoes-container .cancelar{
+    background-color: var(--branco);
+    border: 1px solid var(--borda-campos);
+}
+
+.botoes-container .cadastrar{
+    background-color: #16A34A;
+    color: var(--branco);
+}
+.botoes-container button.cadastrar:active{
+    background-color:#117937;
+}
+.botoes-container button.cancelar:active{
+    background-color: var(--fundo-icones);
+}
