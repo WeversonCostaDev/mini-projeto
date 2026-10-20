@@ -6,13 +6,30 @@
     --borda-ao-focar: #16A34A;
     --branco: #fff;
 }
+.modal-ovelay{
+    position: fixed;
+    inset: 0;
+    background-color: rgb(0 0 0 / 50%);
 
-.modal {
-    margin: 0 auto;
-    max-width: 100%;
-    width: 50em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 1000;
+}
+.modal-ovelay.oculto{
+    display: none;
+}
+
+.modal{
+    background-color: var(--branco);
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
     box-sizing: border-box;
-    padding: 20px;
+    padding: 24px;
+    box-sizing: border-box;
     border: 1px solid var(--borda-campos);
     border-radius: 10px;
 
@@ -161,4 +178,10 @@
 }
 .botoes-container button.cancelar:active{
     background-color: var(--fundo-icones);
+}
+
+.botao-editar, .botao-excluir{
+    width: 20px;
+    background-color: transparent;
+    border: none;
 }

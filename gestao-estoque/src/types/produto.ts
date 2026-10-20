@@ -7,7 +7,7 @@ export type produto = {
     icone: string,
 }
 
-export const produtos: produto[] = [
+export let produtos: produto[] = [
     {
         id: 1,
         nome: "Mouse",

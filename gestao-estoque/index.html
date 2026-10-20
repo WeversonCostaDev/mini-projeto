@@ -13,22 +13,30 @@
   <div id="app">
     <div class="controle-container">
       <header>
-        <div class="topo-header">
-          <svg class="logo" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-            class="lucide lucide-box preview-icon">
-            <path
-              d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" />
-            <path d="m3.3 7 8.7 5 8.7-5" />
-            <path d="M12 22V12" />
-          </svg>
-          <div class="titulos-container">
-            <h3>Controle de Estoque</h3>
-            <span>Gerenciamento de produtos</span>
+        <div class="header-container">
+          <div class="topo-header">
+            <svg class="logo" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-box preview-icon">
+              <path
+                d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" />
+              <path d="m3.3 7 8.7 5 8.7-5" />
+              <path d="M12 22V12" />
+            </svg>
+            <div class="titulos-container">
+              <h3>Controle de Estoque</h3>
+              <span>Gerenciamento de produtos</span>
+            </div>
+            <button id="recarrega-itens">
+              <img src="/icons/recarregar.svg" alt="botão de recarregar">
+            </button>
           </div>
-          <button id="recarrega-itens">
-            Recarregar
-          </button>
+          <div class="inferior-header">
+            <div id="barra-pesquisa">
+              <label for="pesquisa"></label>
+              <input type="text" id="pesquisa" name="pesquisa" placeholder="Nome do produto">
+            </div>
+          </div>
         </div>
 
 
@@ -72,17 +80,17 @@
       </header>
 
       <main>
-        <div id="area-produtos">
-          <div class="produtos-cadastrados">
+        <div class="produtos-cadastrados">
             <h3>Produtos cadastrados</h3>
-            <button>
+            <button id="novo-produto">
               + Novo produto
             </button>
-          </div>
+        </div>
+        <div id="area-produtos">
         </div>
       </main>
     </div>
-    <section>
+    <section id="modal-produto" class="modal-ovelay oculto">
       <div class="modal">
         <header class="header">
           <div>
@@ -109,7 +117,7 @@
 
           <div id="campo-4" class="campo-container">
             <label for="icone">Ícone</label>
-            <input type="file" name="icone" id="icone" placeholder="Ex.: Selecionar" required>
+            <input type="file" name="icone" id="icone" placeholder="Ex.: Selecionar">
           </div>
 
           <div class="previa">
@@ -117,7 +125,7 @@
             <div class="previa-info">
               <img class="previa-imagem" src="/icons/teclado.svg" alt="Prévia do produto">
               <div>
-                <h4 id="preview-nome">Nome do produto</h4>
+                <h4 id="previa-nome">Nome do produto</h4>
                 <span id="previa-preco">R$ 0,00</span>
                 <span id="previa-quantidade">0 unidades em estoque</span>
               </div>
@@ -135,8 +143,6 @@
   </div>
 
   <script type="module" src="/src/main.ts"></script>
-  <script type="module" src="/src/formulario.ts"></script>
-
 </body>
 
 </html>
