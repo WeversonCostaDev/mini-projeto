@@ -1,13 +1,8 @@
+import type { produto } from "./types/produto.ts";
+import type { tipoMovimentacao } from "./types/produto.ts";
+import type { movimentacao } from "./types/produto.ts";
 
-
-type produto = {
-    id: number,
-    nome: string,
-    preco: number,
-    emEstoque: boolean,
-    quantidade: number,
-    icone: string,
-}
+const registroMovimentacao: movimentacao[] = [];
 
 let produtos: produto[] = [
     {
@@ -139,6 +134,54 @@ function exibirProduto(produto: produto, areaProdutos: HTMLElement): void {
     areaProdutos.appendChild(card);
 }
 
+function registrarMovimentacao (
+    idProduto: number,
+    nomeProduto: string,
+    tipo: tipoMovimentacao,
+    quantidade: number
+    ):void{
+        registroMovimentacao.push({
+            id: Date.now(),
+            idProduto: idProduto,
+            nomeProduto,
+            tipo,
+            quantidade,
+            data: new Date()
+    });
+    exibirMovimentacao();
+}
+
+function exibirMovimentacao(): void{
+    const historico = document.getElementById("historico-movimentacoes");
+    if(!historico) throw new Error("Elemento histórico não encontrado!");
+
+    historico.innerHTML="";
+
+    if(registroMovimentacao.length === 0){
+        historico.textContent = "Histórico não encontrado";
+    }
+
+    registroMovimentacao.forEach(movimentacao => {
+        const item = document.createElement("div");
+        item.classList.add("item-movimentacao");
+
+        const dataFormatada = movimentacao.data.toLocaleString("pt-BR");
+
+        item.innerHTML= 
+        `
+            <div>
+                <strong>${movimentacao.nomeProduto}</strong>
+                <p>${dataFormatada}</p>
+            </div>
+            <div class="${movimentacao.tipo}">
+                <span>${movimentacao.tipo}</span>
+                <p>${movimentacao.tipo === "entrada" ? "+" : "-"} ${movimentacao.quantidade}</p>
+            </div>
+        `;
+        historico.append(item);
+    });
+
+}
 
 /* ================================== FORMULARIO ======================================= */
 import { configurarModal } from "./configuracoes.ts";
@@ -175,11 +218,22 @@ async function cadastrar(event: SubmitEvent): Promise<void>{
     }
 
     if(produtoEdicao){
+        const quantidadeOriginal: number = produtoEdicao.quantidade;
+        const novaQuantidade: number = Number(dados.get("quantidade"));
+
+
+
         produtoEdicao.nome = String(dados.get("nome")).toLocaleLowerCase().trim();
         produtoEdicao.preco = Number(dados.get("preco"));
-        produtoEdicao.quantidade = Number(dados.get("quantidade"));
+        produtoEdicao.quantidade = novaQuantidade;
         produtoEdicao.emEstoque = produtoEdicao.quantidade >= 1;
         produtoEdicao.icone = imagemTratada;
+
+        if(quantidadeOriginal !== novaQuantidade){
+            const tipo: tipoMovimentacao = quantidadeOriginal > novaQuantidade ? "saida" : "entrada";
+            const diferenca: number = Math.abs(novaQuantidade - quantidadeOriginal);
+            registrarMovimentacao(produtoEdicao.id, produtoEdicao.nome, tipo, diferenca);
+        }
         produtoEdicao = null;
         return;
     }
@@ -193,6 +247,7 @@ async function cadastrar(event: SubmitEvent): Promise<void>{
         icone: imagemTratada!,
     }
     produtos.push(produto);
+    registrarMovimentacao(produto.id, produto.nome, "entrada", produto.quantidade);
 } 
 
 async function converterImagemParaBase64(arquivo: File): Promise<string>{
