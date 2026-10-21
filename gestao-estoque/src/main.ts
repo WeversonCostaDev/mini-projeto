@@ -2,36 +2,6 @@ import type { produto } from "./types/produto.ts";
 import type { tipoMovimentacao } from "./types/produto.ts";
 import type { movimentacao } from "./types/produto.ts";
 
-const registroMovimentacao: movimentacao[] = [];
-
-let produtos: produto[] = [
-    {
-        id: 1,
-        nome: "mouse",
-        preco: 200.00,
-        emEstoque: true,
-        quantidade: 30,
-        icone: "/icons/mouse.svg",
-    },
-    {
-        id: 2,
-        nome: "headphone",
-        preco: 360.00,
-        emEstoque: true,
-        quantidade: 2,
-        icone: "/icons/headphones.svg",
-    },
-    {
-        id: 3,
-        nome: "teclado",
-        preco: 240.00,
-        emEstoque: true,
-        quantidade: 13,
-        icone: "/icons/teclado.svg",
-    },
-];
-
-let produtoEdicao : produto | null = null;
 
 function atualizaContagem(produtos: produto[]): void {
     const quantidades = document.querySelectorAll(".menu-navegacao .quantidade");
@@ -59,24 +29,38 @@ function barraPesquisa():void{
     barra.addEventListener("input", ():void =>{
         clearTimeout(temporizador);
 
-        temporizador = window.setTimeout(()=>{
+        temporizador = window.setTimeout(async ()=>{
 
             const textoPesquisa = barra.value;
+            const produtos: produto[] = await buscarProdutos();
             const produtosFiltrados = produtos.filter(p => p.nome.includes(textoPesquisa));
             exibirProdutos(produtosFiltrados);
         }, 1000);
     });
 }
 
-function recarregarItens(){
+async function buscarProdutos():Promise<produto[]> {
+    
+    const resposta = await fetch("http://localhost:3000/produtos");
+
+    if (!resposta.ok) {
+        throw new Error("Erro ao buscar produtos");
+    }
+
+    const produtos: produto[] = await resposta.json();
+    return produtos;
+}
+
+/*Adicionado ao final para registrar a função ao botão de recarregar produtos*/
+async function recarregarItens(){
     const botao = document.getElementById("recarrega-itens");
     if(!botao) throw new Error("Elemento de id #recarrega-itens não encontrado");
 
-    botao.addEventListener("click", () => exibirProdutos(produtos));
-    botao.addEventListener("click", () => atualizaContagem(produtos));
+    botao.addEventListener("click", () => inicializar());
 }   
 
-function exibirProdutos(produtos: produto[]):void {
+async function exibirProdutos(produtos: produto[]):Promise<void> {
+
     const areaProdutos = document.getElementById("area-produtos");
 
     if (!areaProdutos) throw new Error("Elemento de id #area-produtos não encontrado!");
@@ -105,8 +89,15 @@ function exibirProduto(produto: produto, areaProdutos: HTMLElement): void {
         <button type="button" class="botao-excluir" aria-label="Excluir produto">
             <svg class="excluir" class="icone" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash preview-icon"><path d="M10 11v6"/><path d="M14 11v6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
         </button>    
-        </div>
+    </div>
     `;
+   
+    aplicaEfeitoBotoes(card, produto);
+
+    areaProdutos.appendChild(card);
+}
+
+function aplicaEfeitoBotoes(card: HTMLElement, produto:produto): void {
     const modalProduto = document.getElementById("modal-produto");
     const botaoEditar = card.querySelector<HTMLButtonElement>(".botao-editar");
     const botaoExcluir = card.querySelector<HTMLButtonElement>(".botao-excluir");
@@ -114,7 +105,10 @@ function exibirProduto(produto: produto, areaProdutos: HTMLElement): void {
     if(!modalProduto || !botaoEditar || !botaoExcluir) throw new Error("Elemento não encontrado!");
     
     botaoEditar.addEventListener("click", (): void =>{
-        produtoEdicao = produto;
+        
+        modalProduto.classList.remove("oculto");
+
+        //produtoEdicao = produto;
         const nomeInput = document.getElementById("nome") as HTMLInputElement;
         const precoInput = document.getElementById("preco") as HTMLInputElement;
         const quantidadeInput = document.getElementById("quantidade") as HTMLInputElement;
@@ -122,50 +116,76 @@ function exibirProduto(produto: produto, areaProdutos: HTMLElement): void {
         nomeInput.value = produto.nome;
         precoInput.value = produto.preco.toString();
         quantidadeInput.value = produto.quantidade.toString();
-
-        modalProduto.classList.remove("oculto");
     });
 
-    botaoExcluir.addEventListener("click", () => {
-        const novaLista = produtos.filter(p => p.id != produto.id);
-        produtos = novaLista;
+    botaoExcluir.addEventListener("click", async () => {
+        const resposta = await fetch(
+        `http://localhost:3000/produtos/${produto.id}`,
+        {
+            method: "DELETE"
+        });
+
+        if (!resposta.ok)
+        {
+            throw new Error("Erro ao excluir produto");
+        }
+        window.location.reload();
     });
 
-    areaProdutos.appendChild(card);
 }
 
-function registrarMovimentacao (
+async function buscarMovimentacao():Promise<movimentacao[]>{
+    const resposta  = await fetch(`http://localhost:3000/movimentacao`);
+
+    if(!resposta) throw new Error("Erro ao buscar movimentação.");
+
+    const movimentacao: movimentacao[] = await resposta.json();
+    return movimentacao;
+}
+
+async function registrarMovimentacao (
     idProduto: number,
     nomeProduto: string,
     tipo: tipoMovimentacao,
     quantidade: number
-    ):void{
-        registroMovimentacao.push({
-            id: Date.now(),
-            idProduto: idProduto,
-            nomeProduto,
-            tipo,
-            quantidade,
-            data: new Date()
-    });
-    exibirMovimentacao();
+    ):Promise<void>{
+    
+    const novaMovimentacao: movimentacao = {
+        id: Date.now(),
+        idProduto: idProduto,
+        nomeProduto,
+        tipo,
+        quantidade,
+        data: new Date(),
+    }
+    
+    const resposta = await fetch(
+        `http://localhost:3000/movimentacao`, {
+            method:"POST",
+            headers:{
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(novaMovimentacao)
+        });
+    if(!resposta.ok) throw new Error("Erro ao registrar movimentação."); 
 }
 
-function exibirMovimentacao(): void{
+async function exibirMovimentacao(): Promise<void>{
+    const movimentacao: movimentacao[] = await buscarMovimentacao();
     const historico = document.getElementById("historico-movimentacoes");
     if(!historico) throw new Error("Elemento histórico não encontrado!");
 
     historico.innerHTML="";
 
-    if(registroMovimentacao.length === 0){
+    if(!movimentacao){
         historico.textContent = "Histórico não encontrado";
     }
 
-    registroMovimentacao.forEach(movimentacao => {
+    movimentacao.forEach(movimentacao => {
         const item = document.createElement("div");
         item.classList.add("item-movimentacao");
 
-        const dataFormatada = movimentacao.data.toLocaleString("pt-BR");
+        const dataFormatada = new Date(movimentacao.data).toLocaleString("pt-BR");
 
         item.innerHTML= 
         `
@@ -180,22 +200,24 @@ function exibirMovimentacao(): void{
         `;
         historico.append(item);
     });
+}
 
+async function inicializar():Promise<void> {
+    const produtos = await buscarProdutos();
+    await exibirProdutos(produtos);
+    atualizaContagem(produtos);
 }
 
 /* ================================== FORMULARIO ======================================= */
-import { configurarModal } from "./configuracoes.ts";
-
 function ativarCadastro() : void{
     const formulario = document.querySelector<HTMLFormElement>(".formulario-produto");
     if(!formulario){
-        return;
+        throw new Error("Elemento formulário não encontrado.");
     }
     formulario.addEventListener("submit", cadastrar);
 }
 
 async function cadastrar(event: SubmitEvent): Promise<void>{
-    event.preventDefault();
 
     const formulario = event.currentTarget as HTMLFormElement;
     const dados = new FormData(formulario);
@@ -217,38 +239,31 @@ async function cadastrar(event: SubmitEvent): Promise<void>{
         return;
     }
 
-    if(produtoEdicao){
-        const quantidadeOriginal: number = produtoEdicao.quantidade;
-        const novaQuantidade: number = Number(dados.get("quantidade"));
-
-
-
-        produtoEdicao.nome = String(dados.get("nome")).toLocaleLowerCase().trim();
-        produtoEdicao.preco = Number(dados.get("preco"));
-        produtoEdicao.quantidade = novaQuantidade;
-        produtoEdicao.emEstoque = produtoEdicao.quantidade >= 1;
-        produtoEdicao.icone = imagemTratada;
-
-        if(quantidadeOriginal !== novaQuantidade){
-            const tipo: tipoMovimentacao = quantidadeOriginal > novaQuantidade ? "saida" : "entrada";
-            const diferenca: number = Math.abs(novaQuantidade - quantidadeOriginal);
-            registrarMovimentacao(produtoEdicao.id, produtoEdicao.nome, tipo, diferenca);
-        }
-        produtoEdicao = null;
-        return;
-    }
-    
     const produto:produto = {
         id: Date.now(),
-        nome: String(dados.get("nome")),
+        nome: String(dados.get("nome")).toLowerCase().trim(),
         preco: Number(dados.get(("preco"))),
         emEstoque: Number(dados.get("quantidade"))>=1,
         quantidade: Number(dados.get("quantidade")),
         icone: imagemTratada!,
     }
-    produtos.push(produto);
-    registrarMovimentacao(produto.id, produto.nome, "entrada", produto.quantidade);
+    await registrarProduto(produto);
+    await registrarMovimentacao(produto.id, produto.nome, "entrada", produto.quantidade);
 } 
+
+async function registrarProduto(produto:produto):Promise<void>{
+    const resposta = await fetch(
+        `http://localhost:3000/produtos`,{
+            method: "POST",
+            headers: 
+            {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(produto)
+        }
+    );
+    if(!resposta.ok) throw new Error("Não foi possível adicionar o produto.");
+}
 
 async function converterImagemParaBase64(arquivo: File): Promise<string>{
     return new Promise(
@@ -270,13 +285,19 @@ async function converterImagemParaBase64(arquivo: File): Promise<string>{
     );  
 }
 
-function novoProduto(){
+function novoProduto(): void{
     const novoProdutoBotao = document.getElementById("novo-produto") as HTMLButtonElement;
     const modalProduto = document.getElementById("modal-produto") as HTMLElement;
 
-    configurarModal(novoProdutoBotao, modalProduto);
+    novoProdutoBotao.addEventListener("click", ()=>{
+        modalProduto.classList.remove("oculto");
+    });
+    modalProduto.addEventListener("click", (event)=>{
+        if(event.target === modalProduto){
+            modalProduto.classList.add("oculto");
+        }
+    })
 }
-
 
 function previa() : void{
     const nomeInput = document.getElementById("nome") as HTMLInputElement;
@@ -314,7 +335,7 @@ previa();
 novoProduto();
 /* ================================== FORMULARIO ======================================= */
 
-exibirProdutos(produtos);
-atualizaContagem(produtos);
+inicializar();
 recarregarItens();
 barraPesquisa();
+exibirMovimentacao();
