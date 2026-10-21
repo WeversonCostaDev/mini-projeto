@@ -122,55 +122,78 @@ function aplicaEfeitoBotoes(card: HTMLElement, produto:produto): void {
         window.location.reload();
     });
 }
-function editarProduto(produto: produto):void{
-    const modalProduto = document.getElementById("modal-produto");
-    if (!modalProduto) {
-        throw new Error("Modal não encontrado.");
-    }
 
+
+function editarProduto(produto: produto):void{
+    const modalProduto = document.getElementById("modal-editar-produto");
+    if (!modalProduto) {
+    throw new Error("Modal não encontrado.");
+    };
     modalProduto.classList.remove("oculto");
 
-    const nomeInput = document.getElementById("nome") as HTMLInputElement;
-    const precoInput = document.getElementById("preco") as HTMLInputElement;
-    const quantidadeInput = document.getElementById("quantidade") as HTMLInputElement;
+    const nomeInput = modalProduto.querySelector<HTMLInputElement>("#modal-editar-produto #nome");
+    const precoInput = modalProduto.querySelector<HTMLInputElement>("#modal-editar-produto #preco");
+    const quantidadeInput = modalProduto.querySelector<HTMLInputElement>("#modal-editar-produto #quantidade");
+
+    if(!nomeInput || !precoInput || !quantidadeInput) throw new Error("Elementos de Input não encontrados.");
 
     nomeInput.value = produto.nome;
     precoInput.value = produto.preco.toString();
     quantidadeInput.value = produto.quantidade.toString();
 
+    const formulario = modalProduto.querySelector<HTMLFormElement>("#formulario-editar-produto");
+    if(!formulario) throw new Error("Formulário não encotrado.");
+    formulario.dataset.produtoId = String(produto.id);
+
+if (!formulario) {
+    throw new Error("Formulário de edição não encontrado.");
 }
 
-async function salvarEdicao(
-    event: SubmitEvent,
-    produto: produto,
-):Promise<void>{
-    event.preventDefault();
+formulario.dataset.produtoId = String(produto.id);
 
-    const formulario = event.currentTarget as HTMLFormElement;
+}
+
+function ativarEdicao():void{
+    const formulario = document.querySelector<HTMLFormElement>("#formulario-editar-produto");
+    if(!formulario) throw new Error("Formulário não encontrado.");
+
+    formulario.addEventListener("submit", salvarEdicao);
+}
+
+async function salvarEdicao():Promise<void>{
+
+    const formulario = document.querySelector<HTMLFormElement>("#formulario-editar-produto");
+    if(!formulario) throw new Error("Formulário não encontrado.");
     const dados = new FormData(formulario);
 
-    const produtoAtualizado: produto = {
-        ...produto,
-        nome: String(dados.get("nome")).toLowerCase().trim(),
+    const produtoId = formulario.dataset.produtoId;
+
+    const produtoAtualizado : Partial<produto> = {
+        nome: String(dados.get("nome")).trim(),
         preco: Number(dados.get("preco")),
         quantidade: Number(dados.get("quantidade")),
-        emEstoque: Number(dados.get("quantidade")) >= 1
+        emEstoque: Number(dados.get("quantidade"))>0,
     };
     const resposta = await fetch(
-        `http://localhost:3000/produtos/${produto.id}`,
+        `http://localhost:3000/produtos/${produtoId}`,
         {
-            method: "PUT",
+            method: "PATCH",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(produtoAtualizado)
         }
-    );
-    if(!resposta.ok) throw new Error("Erro ao atualizar produto.");
+    )
+    if(!resposta.ok) throw new Error("Erro ao atualizar o produto.");
 
     formulario.reset();
-    const modalProduto = document.getElementById("modal-produto");
-    if(!modalProduto)throw new Error("Erro ao procurar Elemento HTML");
+
+     const modalProduto = document.getElementById("modal-editar-produto");
+
+    if (!modalProduto) {
+        throw new Error("Modal de edição não encontrado.");
+    }
+
     modalProduto.classList.add("oculto");
 };
 
@@ -371,6 +394,16 @@ function previa() : void{
     })
 }
 
+function modalEfeitoFechamento(){
+    const modalProduto = document.getElementById("modal-editar-produto") as HTMLElement;
+    if(!modalProduto) throw new Error("modalProduto não encontrado");
+    modalProduto.addEventListener("click", (event)=>{
+    if(event.target === modalProduto){
+        modalProduto.classList.add("oculto");
+    }
+});
+}
+
 ativarCadastro();
 previa();
 novoProduto();
@@ -380,3 +413,7 @@ inicializar();
 recarregarItens();
 barraPesquisa();
 exibirMovimentacao();
+modalEfeitoFechamento();
+ativarEdicao();
+
+//Adicionar movimentacao na funcao de editar produtos
