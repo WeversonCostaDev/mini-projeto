@@ -105,17 +105,7 @@ function aplicaEfeitoBotoes(card: HTMLElement, produto:produto): void {
     if(!modalProduto || !botaoEditar || !botaoExcluir) throw new Error("Elemento não encontrado!");
     
     botaoEditar.addEventListener("click", (): void =>{
-        
-        modalProduto.classList.remove("oculto");
-
-        //produtoEdicao = produto;
-        const nomeInput = document.getElementById("nome") as HTMLInputElement;
-        const precoInput = document.getElementById("preco") as HTMLInputElement;
-        const quantidadeInput = document.getElementById("quantidade") as HTMLInputElement;
-
-        nomeInput.value = produto.nome;
-        precoInput.value = produto.preco.toString();
-        quantidadeInput.value = produto.quantidade.toString();
+        editarProduto(produto);
     });
 
     botaoExcluir.addEventListener("click", async () => {
@@ -131,8 +121,59 @@ function aplicaEfeitoBotoes(card: HTMLElement, produto:produto): void {
         }
         window.location.reload();
     });
+}
+function editarProduto(produto: produto):void{
+    const modalProduto = document.getElementById("modal-produto");
+    if (!modalProduto) {
+        throw new Error("Modal não encontrado.");
+    }
+
+    modalProduto.classList.remove("oculto");
+
+    const nomeInput = document.getElementById("nome") as HTMLInputElement;
+    const precoInput = document.getElementById("preco") as HTMLInputElement;
+    const quantidadeInput = document.getElementById("quantidade") as HTMLInputElement;
+
+    nomeInput.value = produto.nome;
+    precoInput.value = produto.preco.toString();
+    quantidadeInput.value = produto.quantidade.toString();
 
 }
+
+async function salvarEdicao(
+    event: SubmitEvent,
+    produto: produto,
+):Promise<void>{
+    event.preventDefault();
+
+    const formulario = event.currentTarget as HTMLFormElement;
+    const dados = new FormData(formulario);
+
+    const produtoAtualizado: produto = {
+        ...produto,
+        nome: String(dados.get("nome")).toLowerCase().trim(),
+        preco: Number(dados.get("preco")),
+        quantidade: Number(dados.get("quantidade")),
+        emEstoque: Number(dados.get("quantidade")) >= 1
+    };
+    const resposta = await fetch(
+        `http://localhost:3000/produtos/${produto.id}`,
+        {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(produtoAtualizado)
+        }
+    );
+    if(!resposta.ok) throw new Error("Erro ao atualizar produto.");
+
+    formulario.reset();
+    const modalProduto = document.getElementById("modal-produto");
+    if(!modalProduto)throw new Error("Erro ao procurar Elemento HTML");
+    modalProduto.classList.add("oculto");
+};
+
 
 async function buscarMovimentacao():Promise<movimentacao[]>{
     const resposta  = await fetch(`http://localhost:3000/movimentacao`);
