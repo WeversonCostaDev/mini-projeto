@@ -1,87 +1,47 @@
 {
   "produtos": [
     {
-      "id": "-_qknuxMEKQ",
-      "nome": "joao",
+      "id": "eKfwjO5zZk4",
+      "nome": "iogurt",
       "preco": 100,
       "emEstoque": true,
+      "quantidade": 3,
+      "icone": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWtleWJvYXJkIHByZXZpZXctaWNvbiI+PHBhdGggZD0iTTEwIDhoLjAxIi8+PHBhdGggZD0iTTEyIDEyaC4wMSIvPjxwYXRoIGQ9Ik0xNCA4aC4wMSIvPjxwYXRoIGQ9Ik0xNiAxMmguMDEiLz48cGF0aCBkPSJNMTggOGguMDEiLz48cGF0aCBkPSJNNiA4aC4wMSIvPjxwYXRoIGQ9Ik03IDE2aDEwIi8+PHBhdGggZD0iTTggMTJoLjAxIi8+PHJlY3Qgd2lkdGg9IjIwIiBoZWlnaHQ9IjE2IiB4PSIyIiB5PSI0IiByeD0iMiIvPjwvc3ZnPg=="
+    },
+    {
+      "id": "ic6CXwNZQSY",
+      "nome": "mouse",
+      "preco": 200,
+      "emEstoque": true,
       "quantidade": 2,
-      "icone": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IS0tIFVwbG9hZGVkIHRvOiBTVkcgUmVwbywgd3d3LnN2Z3JlcG8uY29tLCBHZW5lcmF0b3I6IFNWRyBSZXBvIE1peGVyIFRvb2xzIC0tPg0KPHN2ZyB3aWR0aD0iODAwcHgiIGhlaWdodD0iODAwcHgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCjxwYXRoIGQ9Ik00IDZIMjBNMTYgNkwxNS43Mjk0IDUuMTg4MDdDMTUuNDY3MSA0LjQwMTI1IDE1LjMzNTkgNC4wMDc4NCAxNS4wOTI3IDMuNzE2OThDMTQuODc3OSAzLjQ2MDEzIDE0LjYwMjEgMy4yNjEzMiAxNC4yOTA1IDMuMTM4NzhDMTMuOTM3NiAzIDEzLjUyMyAzIDEyLjY5MzYgM0gxMS4zMDY0QzEwLjQ3NyAzIDEwLjA2MjQgMyA5LjcwOTUxIDMuMTM4NzhDOS4zOTc5MiAzLjI2MTMyIDkuMTIyMDggMy40NjAxMyA4LjkwNzI5IDMuNzE2OThDOC42NjQwNSA0LjAwNzg0IDguNTMyOTIgNC40MDEyNSA4LjI3MDY0IDUuMTg4MDdMOCA2TTE4IDZWMTYuMkMxOCAxNy44ODAyIDE4IDE4LjcyMDIgMTcuNjczIDE5LjM2MkMxNy4zODU0IDE5LjkyNjUgMTYuOTI2NSAyMC4zODU0IDE2LjM2MiAyMC42NzNDMTUuNzIwMiAyMSAxNC44ODAyIDIxIDEzLjIgMjFIMTAuOEM5LjExOTg0IDIxIDguMjc5NzYgMjEgNy42MzgwMyAyMC42NzNDNy4wNzM1NCAyMC4zODU0IDYuNjE0NiAxOS45MjY1IDYuMzI2OTggMTkuMzYyQzYgMTguNzIwMiA2IDE3Ljg4MDIgNiAxNi4yVjZNMTQgMTBWMTdNMTAgMTBWMTciIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4NCjwvc3ZnPg=="
+      "icone": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IS0tIFVwbG9hZGVkIHRvOiBTVkcgUmVwbywgd3d3LnN2Z3JlcG8uY29tLCBHZW5lcmF0b3I6IFNWRyBSZXBvIE1peGVyIFRvb2xzIC0tPg0KPHN2ZyB3aWR0aD0iODAwcHgiIGhlaWdodD0iODAwcHgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCjxwYXRoIGQ9Ik0xMiA5VjNNMTIgM0MxNS4zMTM3IDMgMTggNS42ODYyOSAxOCA5VjE1QzE4IDE4LjMxMzcgMTUuMzEzNyAyMSAxMiAyMUM4LjY4NjI5IDIxIDYgMTguMzEzNyA2IDE1VjlDNiA1LjY4NjI5IDguNjg2MjkgMyAxMiAzWiIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPg0KPC9zdmc+"
     }
   ],
   "movimentacao": [
     {
-      "id": "f43tNKjNmWo",
-      "idProduto": 1792546064209,
-      "nomeProduto": "Iogurt",
+      "id": "5wIif4Mt2No",
+      "idProduto": "eKfwjO5zZk4",
+      "nomeProduto": "iogurt",
       "tipo": "entrada",
-      "quantidade": 50,
-      "data": "2026-10-21T01:27:44.227Z"
+      "quantidade": 20,
+      "data": "2026-10-22T15:53:44.265Z"
     },
     {
-      "id": "7PldfogWP_g",
-      "idProduto": 1792546241435,
-      "nomeProduto": "Cadeira gamer",
-      "tipo": "entrada",
+      "id": "xaC14HY7zus",
+      "idProduto": "eKfwjO5zZk4",
+      "nomeProduto": "iogurt",
+      "tipo": "saida",
+      "quantidade": 25,
+      "data": "2026-10-22T15:54:50.772Z"
+    },
+    {
+      "id": "YXKUlH01vzw",
+      "idProduto": "eKfwjO5zZk4",
+      "nomeProduto": "iogurt",
+      "tipo": "saida",
       "quantidade": 2,
-      "data": "2026-10-21T01:30:41.446Z"
-    },
-    {
-      "id": "pE5yrU-L5Sg",
-      "idProduto": 1792546445422,
-      "nomeProduto": "Soudbar",
-      "tipo": "entrada",
-      "quantidade": 3,
-      "data": "2026-10-21T01:34:05.432Z"
-    },
-    {
-      "id": "e6qYYzLYNQc",
-      "idProduto": 1792546685474,
-      "nomeProduto": "memória ram",
-      "tipo": "entrada",
-      "quantidade": 60,
-      "data": "2026-10-21T01:38:05.483Z"
-    },
-    {
-      "id": "R5eVedsM2jw",
-      "idProduto": 1792547026500,
-      "nomeProduto": "Iogurt",
-      "tipo": "entrada",
-      "quantidade": 4,
-      "data": "2026-10-21T01:43:46.509Z"
-    },
-    {
-      "id": "-WPKapi88fQ",
-      "idProduto": 1792547094563,
-      "nomeProduto": "Mouse Alterado",
-      "tipo": "entrada",
-      "quantidade": 50,
-      "data": "2026-10-21T01:44:54.574Z"
-    },
-    {
-      "id": "_hMHD4_A2N0",
-      "idProduto": 1792547236211,
-      "nomeProduto": "Iogurt",
-      "tipo": "entrada",
-      "quantidade": 52,
-      "data": "2026-10-21T01:47:16.219Z"
-    },
-    {
-      "id": "ZxjTYwXpRMU",
-      "idProduto": 1792547260923,
-      "nomeProduto": "Mewtwo",
-      "tipo": "entrada",
-      "quantidade": 50,
-      "data": "2026-10-21T01:47:40.933Z"
-    },
-    {
-      "id": "qJioPQ-KVBg",
-      "idProduto": 1792547443639,
-      "nomeProduto": "joao",
-      "tipo": "entrada",
-      "quantidade": 5,
-      "data": "2026-10-21T01:50:43.649Z"
+      "data": "2026-10-22T16:07:18.889Z"
     }
-  ]
-
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

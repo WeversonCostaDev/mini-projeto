@@ -107,6 +107,9 @@ body {
     color: var(--cinza);
 }
 
+.card-produto .quantidade{
+    width: 60px;
+}
 
 .produtos-cadastrados button {
     padding: 15px 5px;
@@ -255,6 +258,12 @@ body {
         width: 100%;
         justify-content: center;
     }
+
+    .card-produto{
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+    }
 }
 
 #app{
@@ -267,7 +276,7 @@ body {
     margin-top: 10px;
     border:2px solid var(--cinza);
     border-radius: 5px;
-    max-width: 100%;
+    max-width: 95%;
     width: 50em;
 }
 

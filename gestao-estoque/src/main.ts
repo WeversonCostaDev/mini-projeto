@@ -81,6 +81,12 @@ function exibirProduto(produto: produto, areaProdutos: HTMLElement): void {
             <p class="preco">R$ ${produto.preco.toFixed(2)}</p>
         </div>
     </div>
+    <div>                 
+        <button class="botao-adicionar" type="submit">+</button>
+        <input class="quantidade" type="number" min="1">
+        <button class="botao-diminuir" type="button">-</button>
+        </form>
+    </div>
     <div>
         <span class="quantidade">${produto.quantidade} uni.</span>
         <button type="button" class="botao-editar" aria-label="Editar produto">
@@ -102,8 +108,12 @@ function aplicaEfeitoBotoes(card: HTMLElement, produto:produto): void {
     const botaoEditar = card.querySelector<HTMLButtonElement>(".botao-editar");
     const botaoExcluir = card.querySelector<HTMLButtonElement>(".botao-excluir");
 
-    if(!modalProduto || !botaoEditar || !botaoExcluir) throw new Error("Elemento não encontrado!");
-    
+    const quantidadeInput = card.querySelector<HTMLInputElement>(".quantidade");
+    const botaoAdicionar = card.querySelector<HTMLButtonElement>(".botao-adicionar");
+    const botaoDiminuir = card.querySelector<HTMLButtonElement>(".botao-diminuir");
+
+    if(!modalProduto || !botaoEditar || !botaoExcluir || !botaoAdicionar || !botaoDiminuir || !quantidadeInput) throw new Error("Elemento não encontrado!");
+
     botaoEditar.addEventListener("click", (): void =>{
         editarProduto(produto);
     });
@@ -121,7 +131,64 @@ function aplicaEfeitoBotoes(card: HTMLElement, produto:produto): void {
         }
         window.location.reload();
     });
+
+    
+    botaoAdicionar.addEventListener("click", async() =>{
+
+        const quantidade = Number(quantidadeInput.value);
+
+        if (!Number.isInteger(quantidade) || quantidade < 1) {
+        alert("Digite uma quantidade inteira maior que zero.");
+        return;
+        }
+        persistirQuantidade(Number(quantidadeInput.value), produto, "+");
+    });
+    botaoDiminuir.addEventListener("click", async() => {
+        const quantidade = Number(quantidadeInput.value)
+         if (!Number.isInteger(quantidade) || quantidade < 1) {
+            alert("Digite uma quantidade inteira maior que zero.");
+            return;
+        }
+        if(0 > (produto.quantidade - quantidade))
+        {
+            alert("Não é possível retirar quantidade maior que a disponível.")
+            return;
+        }
+        persistirQuantidade(quantidade, produto, "-");
+    })
 }
+
+async function persistirQuantidade(quantidade: number, produto: produto, operador: string): Promise<void>{
+    let operacao: number;
+    let tipoMovimentacao: tipoMovimentacao; 
+    if (operador === "+") {
+        operacao = produto.quantidade + quantidade;
+        tipoMovimentacao = "entrada";
+    } else if (operador === "-") {
+        operacao = produto.quantidade - quantidade;
+        tipoMovimentacao = "saida";
+    } else {
+        throw new Error("Operador inválido.");
+    }
+    const produtoAtualizado : Partial<produto> = 
+        {
+            quantidade: operacao,
+        };
+        const resposta = await fetch(
+            `http://localhost:3000/produtos/${produto.id}`,
+            {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(produtoAtualizado)
+            }
+        );
+        if(!resposta.ok) throw new Error("Erro ao atualizar o produto.");
+
+    registrarMovimentacao(produto.id, produto.nome, tipoMovimentacao, quantidade);
+    window.location.reload();
+};
 
 
 function editarProduto(produto: produto):void{
@@ -312,7 +379,6 @@ async function cadastrar(event: SubmitEvent): Promise<void>{
         icone: imagemTratada!,
     }
     await registrarProduto(produto);
-    await registrarMovimentacao(produto.id, produto.nome, "entrada", produto.quantidade);
 } 
 
 async function registrarProduto(produto:produto):Promise<void>{

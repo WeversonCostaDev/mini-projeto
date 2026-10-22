@@ -84,6 +84,7 @@
             "previa"
             "botoes";
     }
+
 }
 
 .previa {
@@ -185,3 +186,19 @@
     background-color: transparent;
     border: none;
 }
+
+.botao-adicionar, .botao-diminuir{
+    border-radius: 50%;
+    font-weight: 800;
+    width: 1.6em;
+    cursor: pointer;
+    border: none;
+    color: var(--branco);
+}
+.botao-adicionar{
+    background-color: var(--borda-ao-focar);
+}
+.botao-diminuir{
+    background-color: var(--vermelho);
+}
+
