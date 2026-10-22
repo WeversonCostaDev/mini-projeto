@@ -2,6 +2,13 @@ import type { produto } from "./types/produto.ts";
 import type { tipoMovimentacao } from "./types/produto.ts";
 import type { movimentacao } from "./types/produto.ts";
 
+function exibirHistorico(): void {
+    const botao = document.getElementById("exibir-historico") as HTMLButtonElement;
+    botao.addEventListener("click", () => {
+        const modal = document.getElementById("historico") as HTMLElement;
+        modal.classList.remove("oculto");
+    });
+}
 
 function atualizaContagem(produtos: produto[]): void {
     const quantidades = document.querySelectorAll(".menu-navegacao .quantidade");
@@ -21,15 +28,15 @@ function atualizaContagem(produtos: produto[]): void {
 
 }
 
-function barraPesquisa():void{
+function barraPesquisa(): void {
     const barra = document.getElementById("pesquisa") as HTMLInputElement;
 
     let temporizador: number;
 
-    barra.addEventListener("input", ():void =>{
+    barra.addEventListener("input", (): void => {
         clearTimeout(temporizador);
 
-        temporizador = window.setTimeout(async ()=>{
+        temporizador = window.setTimeout(async () => {
 
             const textoPesquisa = barra.value;
             const produtos: produto[] = await buscarProdutos();
@@ -39,8 +46,8 @@ function barraPesquisa():void{
     });
 }
 
-async function buscarProdutos():Promise<produto[]> {
-    
+async function buscarProdutos(): Promise<produto[]> {
+
     const resposta = await fetch("http://localhost:3000/produtos");
 
     if (!resposta.ok) {
@@ -52,19 +59,19 @@ async function buscarProdutos():Promise<produto[]> {
 }
 
 /*Adicionado ao final para registrar a função ao botão de recarregar produtos*/
-async function recarregarItens(){
+async function recarregarItens() {
     const botao = document.getElementById("recarrega-itens");
-    if(!botao) throw new Error("Elemento de id #recarrega-itens não encontrado");
+    if (!botao) throw new Error("Elemento de id #recarrega-itens não encontrado");
 
     botao.addEventListener("click", () => inicializar());
-}   
+}
 
-async function exibirProdutos(produtos: produto[]):Promise<void> {
+async function exibirProdutos(produtos: produto[]): Promise<void> {
 
     const areaProdutos = document.getElementById("area-produtos");
 
     if (!areaProdutos) throw new Error("Elemento de id #area-produtos não encontrado!");
-    areaProdutos.innerHTML="";
+    areaProdutos.innerHTML = "";
     produtos.forEach(produto => exibirProduto(produto, areaProdutos));
 }
 
@@ -97,13 +104,13 @@ function exibirProduto(produto: produto, areaProdutos: HTMLElement): void {
         </button>    
     </div>
     `;
-   
+
     aplicaEfeitoBotoes(card, produto);
 
     areaProdutos.appendChild(card);
 }
 
-function aplicaEfeitoBotoes(card: HTMLElement, produto:produto): void {
+function aplicaEfeitoBotoes(card: HTMLElement, produto: produto): void {
     const modalProduto = document.getElementById("modal-produto");
     const botaoEditar = card.querySelector<HTMLButtonElement>(".botao-editar");
     const botaoExcluir = card.querySelector<HTMLButtonElement>(".botao-excluir");
@@ -112,45 +119,43 @@ function aplicaEfeitoBotoes(card: HTMLElement, produto:produto): void {
     const botaoAdicionar = card.querySelector<HTMLButtonElement>(".botao-adicionar");
     const botaoDiminuir = card.querySelector<HTMLButtonElement>(".botao-diminuir");
 
-    if(!modalProduto || !botaoEditar || !botaoExcluir || !botaoAdicionar || !botaoDiminuir || !quantidadeInput) throw new Error("Elemento não encontrado!");
+    if (!modalProduto || !botaoEditar || !botaoExcluir || !botaoAdicionar || !botaoDiminuir || !quantidadeInput) throw new Error("Elemento não encontrado!");
 
-    botaoEditar.addEventListener("click", (): void =>{
+    botaoEditar.addEventListener("click", (): void => {
         editarProduto(produto);
     });
 
     botaoExcluir.addEventListener("click", async () => {
         const resposta = await fetch(
-        `http://localhost:3000/produtos/${produto.id}`,
-        {
-            method: "DELETE"
-        });
+            `http://localhost:3000/produtos/${produto.id}`,
+            {
+                method: "DELETE"
+            });
 
-        if (!resposta.ok)
-        {
+        if (!resposta.ok) {
             throw new Error("Erro ao excluir produto");
         }
         window.location.reload();
     });
 
-    
-    botaoAdicionar.addEventListener("click", async() =>{
+
+    botaoAdicionar.addEventListener("click", async () => {
 
         const quantidade = Number(quantidadeInput.value);
 
         if (!Number.isInteger(quantidade) || quantidade < 1) {
-        alert("Digite uma quantidade inteira maior que zero.");
-        return;
-        }
-        persistirQuantidade(Number(quantidadeInput.value), produto, "+");
-    });
-    botaoDiminuir.addEventListener("click", async() => {
-        const quantidade = Number(quantidadeInput.value)
-         if (!Number.isInteger(quantidade) || quantidade < 1) {
             alert("Digite uma quantidade inteira maior que zero.");
             return;
         }
-        if(0 > (produto.quantidade - quantidade))
-        {
+        persistirQuantidade(Number(quantidadeInput.value), produto, "+");
+    });
+    botaoDiminuir.addEventListener("click", async () => {
+        const quantidade = Number(quantidadeInput.value)
+        if (!Number.isInteger(quantidade) || quantidade < 1) {
+            alert("Digite uma quantidade inteira maior que zero.");
+            return;
+        }
+        if (0 > (produto.quantidade - quantidade)) {
             alert("Não é possível retirar quantidade maior que a disponível.")
             return;
         }
@@ -158,9 +163,9 @@ function aplicaEfeitoBotoes(card: HTMLElement, produto:produto): void {
     })
 }
 
-async function persistirQuantidade(quantidade: number, produto: produto, operador: string): Promise<void>{
+async function persistirQuantidade(quantidade: number, produto: produto, operador: string): Promise<void> {
     let operacao: number;
-    let tipoMovimentacao: tipoMovimentacao; 
+    let tipoMovimentacao: tipoMovimentacao;
     if (operador === "+") {
         operacao = produto.quantidade + quantidade;
         tipoMovimentacao = "entrada";
@@ -170,31 +175,31 @@ async function persistirQuantidade(quantidade: number, produto: produto, operado
     } else {
         throw new Error("Operador inválido.");
     }
-    const produtoAtualizado : Partial<produto> = 
+    const produtoAtualizado: Partial<produto> =
+    {
+        quantidade: operacao,
+    };
+    const resposta = await fetch(
+        `http://localhost:3000/produtos/${produto.id}`,
         {
-            quantidade: operacao,
-        };
-        const resposta = await fetch(
-            `http://localhost:3000/produtos/${produto.id}`,
-            {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(produtoAtualizado)
-            }
-        );
-        if(!resposta.ok) throw new Error("Erro ao atualizar o produto.");
+        }
+    );
+    if (!resposta.ok) throw new Error("Erro ao atualizar o produto.");
 
     registrarMovimentacao(produto.id, produto.nome, tipoMovimentacao, quantidade);
     window.location.reload();
 };
 
 
-function editarProduto(produto: produto):void{
+function editarProduto(produto: produto): void {
     const modalProduto = document.getElementById("modal-editar-produto");
     if (!modalProduto) {
-    throw new Error("Modal não encontrado.");
+        throw new Error("Modal não encontrado.");
     };
     modalProduto.classList.remove("oculto");
 
@@ -202,44 +207,44 @@ function editarProduto(produto: produto):void{
     const precoInput = modalProduto.querySelector<HTMLInputElement>("#modal-editar-produto #preco");
     const quantidadeInput = modalProduto.querySelector<HTMLInputElement>("#modal-editar-produto #quantidade");
 
-    if(!nomeInput || !precoInput || !quantidadeInput) throw new Error("Elementos de Input não encontrados.");
+    if (!nomeInput || !precoInput || !quantidadeInput) throw new Error("Elementos de Input não encontrados.");
 
     nomeInput.value = produto.nome;
     precoInput.value = produto.preco.toString();
     quantidadeInput.value = produto.quantidade.toString();
 
     const formulario = modalProduto.querySelector<HTMLFormElement>("#formulario-editar-produto");
-    if(!formulario) throw new Error("Formulário não encotrado.");
+    if (!formulario) throw new Error("Formulário não encotrado.");
     formulario.dataset.produtoId = String(produto.id);
 
-if (!formulario) {
-    throw new Error("Formulário de edição não encontrado.");
+    if (!formulario) {
+        throw new Error("Formulário de edição não encontrado.");
+    }
+
+    formulario.dataset.produtoId = String(produto.id);
+
 }
 
-formulario.dataset.produtoId = String(produto.id);
-
-}
-
-function ativarEdicao():void{
+function ativarEdicao(): void {
     const formulario = document.querySelector<HTMLFormElement>("#formulario-editar-produto");
-    if(!formulario) throw new Error("Formulário não encontrado.");
+    if (!formulario) throw new Error("Formulário não encontrado.");
 
     formulario.addEventListener("submit", salvarEdicao);
 }
 
-async function salvarEdicao():Promise<void>{
+async function salvarEdicao(): Promise<void> {
 
     const formulario = document.querySelector<HTMLFormElement>("#formulario-editar-produto");
-    if(!formulario) throw new Error("Formulário não encontrado.");
+    if (!formulario) throw new Error("Formulário não encontrado.");
     const dados = new FormData(formulario);
 
     const produtoId = formulario.dataset.produtoId;
 
-    const produtoAtualizado : Partial<produto> = {
+    const produtoAtualizado: Partial<produto> = {
         nome: String(dados.get("nome")).trim(),
         preco: Number(dados.get("preco")),
         quantidade: Number(dados.get("quantidade")),
-        emEstoque: Number(dados.get("quantidade"))>0,
+        emEstoque: Number(dados.get("quantidade")) > 0,
     };
     const resposta = await fetch(
         `http://localhost:3000/produtos/${produtoId}`,
@@ -251,11 +256,11 @@ async function salvarEdicao():Promise<void>{
             body: JSON.stringify(produtoAtualizado)
         }
     )
-    if(!resposta.ok) throw new Error("Erro ao atualizar o produto.");
+    if (!resposta.ok) throw new Error("Erro ao atualizar o produto.");
 
     formulario.reset();
 
-     const modalProduto = document.getElementById("modal-editar-produto");
+    const modalProduto = document.getElementById("modal-editar-produto");
 
     if (!modalProduto) {
         throw new Error("Modal de edição não encontrado.");
@@ -265,22 +270,22 @@ async function salvarEdicao():Promise<void>{
 };
 
 
-async function buscarMovimentacao():Promise<movimentacao[]>{
-    const resposta  = await fetch(`http://localhost:3000/movimentacao`);
+async function buscarMovimentacao(): Promise<movimentacao[]> {
+    const resposta = await fetch(`http://localhost:3000/movimentacao`);
 
-    if(!resposta) throw new Error("Erro ao buscar movimentação.");
+    if (!resposta) throw new Error("Erro ao buscar movimentação.");
 
     const movimentacao: movimentacao[] = await resposta.json();
     return movimentacao;
 }
 
-async function registrarMovimentacao (
+async function registrarMovimentacao(
     idProduto: number,
     nomeProduto: string,
     tipo: tipoMovimentacao,
     quantidade: number
-    ):Promise<void>{
-    
+): Promise<void> {
+
     const novaMovimentacao: movimentacao = {
         id: Date.now(),
         idProduto: idProduto,
@@ -289,26 +294,26 @@ async function registrarMovimentacao (
         quantidade,
         data: new Date(),
     }
-    
+
     const resposta = await fetch(
         `http://localhost:3000/movimentacao`, {
-            method:"POST",
-            headers:{
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(novaMovimentacao)
-        });
-    if(!resposta.ok) throw new Error("Erro ao registrar movimentação."); 
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(novaMovimentacao)
+    });
+    if (!resposta.ok) throw new Error("Erro ao registrar movimentação.");
 }
 
-async function exibirMovimentacao(): Promise<void>{
+async function exibirMovimentacao(): Promise<void> {
     const movimentacao: movimentacao[] = await buscarMovimentacao();
     const historico = document.getElementById("historico-movimentacoes");
-    if(!historico) throw new Error("Elemento histórico não encontrado!");
+    if (!historico) throw new Error("Elemento histórico não encontrado!");
 
-    historico.innerHTML="";
+    historico.innerHTML = "";
 
-    if(!movimentacao){
+    if (!movimentacao) {
         historico.textContent = "Histórico não encontrado";
     }
 
@@ -318,8 +323,8 @@ async function exibirMovimentacao(): Promise<void>{
 
         const dataFormatada = new Date(movimentacao.data).toLocaleString("pt-BR");
 
-        item.innerHTML= 
-        `
+        item.innerHTML =
+            `
             <div>
                 <strong>${movimentacao.nomeProduto}</strong>
                 <p>${dataFormatada}</p>
@@ -333,141 +338,153 @@ async function exibirMovimentacao(): Promise<void>{
     });
 }
 
-async function inicializar():Promise<void> {
+async function inicializar(): Promise<void> {
     const produtos = await buscarProdutos();
     await exibirProdutos(produtos);
     atualizaContagem(produtos);
 }
 
 /* ================================== FORMULARIO ======================================= */
-function ativarCadastro() : void{
+function ativarCadastro(): void {
     const formulario = document.querySelector<HTMLFormElement>(".formulario-produto");
-    if(!formulario){
+    if (!formulario) {
         throw new Error("Elemento formulário não encontrado.");
     }
     formulario.addEventListener("submit", cadastrar);
 }
 
-async function cadastrar(event: SubmitEvent): Promise<void>{
-
+async function cadastrar(event: SubmitEvent): Promise<void> {
+    //event.preventDefault();
     const formulario = event.currentTarget as HTMLFormElement;
     const dados = new FormData(formulario);
-    let imagemTratada:string ="";
+    let imagemTratada: string = "";
     const arquivo = dados.get("icone");
 
     if (arquivo instanceof File && arquivo.size > 0) {
         try {
             imagemTratada = await converterImagemParaBase64(arquivo);
-        } catch (erro) 
-        {
+            console.log("Tamanho original:", arquivo.size);
+            console.log("Tamanho Base64:", imagemTratada.length);
+        } catch (erro) {
             alert(erro);
             return;
         }
     }
 
-    else{
+    else {
         alert("Selecione uma imagem.");
         return;
     }
 
-    const produto:produto = {
+    const produto: produto = {
         id: Date.now(),
         nome: String(dados.get("nome")).toLowerCase().trim(),
         preco: Number(dados.get(("preco"))),
-        emEstoque: Number(dados.get("quantidade"))>=1,
+        emEstoque: Number(dados.get("quantidade")) >= 1,
         quantidade: Number(dados.get("quantidade")),
         icone: imagemTratada!,
     }
     await registrarProduto(produto);
-} 
-
-async function registrarProduto(produto:produto):Promise<void>{
-    const resposta = await fetch(
-        `http://localhost:3000/produtos`,{
-            method: "POST",
-            headers: 
-            {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(produto)
-        }
-    );
-    if(!resposta.ok) throw new Error("Não foi possível adicionar o produto.");
 }
 
-async function converterImagemParaBase64(arquivo: File): Promise<string>{
+async function registrarProduto(produto: produto): Promise<void> {
+    const resposta = await fetch(
+        `http://localhost:3000/produtos`, {
+        method: "POST",
+        headers:
+        {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(produto)
+    }
+    );
+    if (!resposta.ok) {
+        const erro = await resposta.text();
+
+        console.error("Erro ao cadastrar:", resposta.status, erro);
+        alert("Não foi possível cadastrar o produto. Veja o Console.");
+
+        return;
+    }
+
+    console.log("Produto cadastrado com sucesso!");
+}
+
+async function converterImagemParaBase64(arquivo: File): Promise<string> {
     return new Promise(
-        (resolve, reject)=>{
+        (resolve, reject) => {
             const leitor = new FileReader();
 
             leitor.onload = () => {
-                if (typeof leitor.result === "string"){
+                if (typeof leitor.result === "string") {
                     resolve(leitor.result);
                 }
-                else{
+                else {
                     reject(new Error("Não foi possível converter a imagem!"));
                 }
             }
             leitor.onerror = () => reject(leitor.error);
-            
+
             leitor.readAsDataURL(arquivo);
         }
-    );  
+    );
 }
 
-function novoProduto(): void{
+function novoProduto(): void {
     const novoProdutoBotao = document.getElementById("novo-produto") as HTMLButtonElement;
     const modalProduto = document.getElementById("modal-produto") as HTMLElement;
 
-    novoProdutoBotao.addEventListener("click", ()=>{
+    novoProdutoBotao.addEventListener("click", () => {
         modalProduto.classList.remove("oculto");
     });
-    modalProduto.addEventListener("click", (event)=>{
-        if(event.target === modalProduto){
+    modalProduto.addEventListener("click", (event) => {
+        if (event.target === modalProduto) {
             modalProduto.classList.add("oculto");
         }
     })
 }
 
-function previa() : void{
+function previa(): void {
     const nomeInput = document.getElementById("nome") as HTMLInputElement;
     const precoInput = document.getElementById("preco") as HTMLInputElement;
     const quantidadeInput = document.getElementById("quantidade") as HTMLInputElement;
     const iconeInput = document.getElementById("icone") as HTMLInputElement;
 
-    const previaNome = document.getElementById("previa-nome"); 
-    const previaPreco =document.getElementById("previa-preco");
+    const previaNome = document.getElementById("previa-nome");
+    const previaPreco = document.getElementById("previa-preco");
     const previaQuantidade = document.getElementById("previa-quantidade");
     const previaImagem = document.querySelector(".previa-imagem");
 
-    if(!previaNome || !previaPreco || !previaQuantidade || !previaImagem) throw new Error("Propriedades não encontradas");
+    if (!previaNome || !previaPreco || !previaQuantidade || !previaImagem) throw new Error("Propriedades não encontradas");
 
-    nomeInput.addEventListener("input", (): void=>{
+    nomeInput.addEventListener("input", (): void => {
         previaNome.textContent = nomeInput.value;
     });
-    precoInput.addEventListener("input", ():void  =>{
+    precoInput.addEventListener("input", (): void => {
         previaPreco.textContent = `${Number(precoInput.value).toFixed(2)}`;
     })
-    quantidadeInput.addEventListener("input", (): void=>{
+    quantidadeInput.addEventListener("input", (): void => {
         previaQuantidade.textContent = `${quantidadeInput.value} unidades`;
     })
-    iconeInput.addEventListener("change", ():void=>{
+    iconeInput.addEventListener("change", (): void => {
         const arquivo = iconeInput.files?.[0];
-        if(arquivo){
+        if (arquivo) {
             const urlTemporaria = URL.createObjectURL(arquivo);
             previaImagem.setAttribute("src", urlTemporaria)
         }
     })
 }
 
-function modalEfeitoFechamento(){
-    const modalProduto = document.getElementById("modal-editar-produto") as HTMLElement;
-    if(!modalProduto) throw new Error("modalProduto não encontrado");
-    modalProduto.addEventListener("click", (event)=>{
-    if(event.target === modalProduto){
-        modalProduto.classList.add("oculto");
-    }
-});
+function modalEfeitoFechamento() {
+
+    const modais = document.querySelectorAll(".modal-ovelay");
+    modais.forEach(modal => {
+        modal.addEventListener("click", (event) => {
+            if (event.target === modal) {
+                modal.classList.add("oculto");
+            }
+        });
+    });
 }
 
 ativarCadastro();
@@ -479,6 +496,7 @@ inicializar();
 recarregarItens();
 barraPesquisa();
 exibirMovimentacao();
+exibirHistorico();
 modalEfeitoFechamento();
 ativarEdicao();
 

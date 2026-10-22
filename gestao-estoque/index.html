@@ -81,10 +81,10 @@
 
       <main>
         <div class="produtos-cadastrados">
-            <h3>Produtos cadastrados</h3>
-            <button id="novo-produto">
-              + Novo produto
-            </button>
+          <h3>Produtos cadastrados</h3>
+          <button id="novo-produto">
+            + Novo produto
+          </button>
         </div>
         <div id="area-produtos">
         </div>
@@ -117,7 +117,7 @@
 
           <div id="campo-4" class="campo-container">
             <label for="icone">Ícone</label>
-            <input type="file" name="icone" id="icone" placeholder="Ex.: Selecionar">
+            <input type="file" name="icone" id="icone" placeholder="Ex.: Selecionar" accept="image/*">
           </div>
 
           <div class="previa">
@@ -148,7 +148,7 @@
             <img class="icone" src="/icons/box+.svg" alt="icone de caixa" />
           </div>
         </header>
-        <form id="formulario-editar-produto"class="formulario-produto" action="">
+        <form id="formulario-editar-produto" class="formulario-produto" action="">
           <div id="campo-1" class="campo-container">
             <label for="nome">Nome do produto</label>
             <input type="text" name="nome" id="nome" placeholder="Ex.: Mouse gamer" required>
@@ -177,10 +177,12 @@
       </div>
     </section>
 
-    <section id="area-movimentacoes">
-      <h2>Histórico de movimentações</h2>
-      <div id="historico-movimentacoes">
-  
+    <button id="exibir-historico">Exibir histórico</button>
+    <section id="historico" class="modal-ovelay oculto">
+      <div id="area-movimentacoes" class="modal">
+        <h2>Histórico de movimentações</h2>
+        <div id="historico-movimentacoes">
+        </div>
       </div>
     </section>
   </div>

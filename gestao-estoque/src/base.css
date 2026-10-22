@@ -107,7 +107,7 @@ body {
     color: var(--cinza);
 }
 
-.card-produto .quantidade{
+.card-produto .quantidade {
     width: 60px;
 }
 
@@ -200,40 +200,41 @@ body {
     color: red;
 }
 
-#recarrega-itens
-{
+#recarrega-itens {
     background-color: var(--branco);
     height: fit-content;
     padding: 10px;
     border-radius: 5px;
 }
 
-#barra-pesquisa{
+#barra-pesquisa {
     height: 40px;
     width: 200px;
 }
 
-#barra-pesquisa input{
+#barra-pesquisa input {
     height: 100%;
     width: 100%;
 }
 
-.header-container{
+.header-container {
     display: flex;
     justify-content: space-between;
 }
 
-.inferior-header{
-    width:50%;
+.inferior-header {
+    width: 50%;
     display: flex;
     justify-content: flex-end;
 }
+
 .topo-header {
     display: flex;
     gap: 20px;
     width: 50%;
-    
+
 }
+
 @media (max-width: 480px) {
     .menu-navegacao {
         flex-direction: column;
@@ -242,56 +243,56 @@ body {
     .menu-navegacao a {
         width: 100%;
     }
-    .header-container{
+
+    .header-container {
         flex-direction: column;
         justify-content: center;
         margin: 30px;
-        
+
     }
 
-    .topo-header
-    {
+    .topo-header {
         width: 100%;
     }
 
-    .inferior-header{
+    .inferior-header {
         width: 100%;
         justify-content: center;
     }
 
-    .card-produto{
+    .card-produto {
         display: flex;
         flex-direction: column;
         gap: 40px;
     }
 }
 
-#app{
+#app {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-#area-movimentacoes{
+#area-movimentacoes {
     margin-top: 10px;
-    border:2px solid var(--cinza);
+    border: 2px solid var(--cinza);
     border-radius: 5px;
     max-width: 95%;
     width: 50em;
 }
 
-#area-movimentacoes h2{
+#area-movimentacoes h2 {
     text-align: center;
-    
+
 }
 
-#historico-movimentacoes{
+#historico-movimentacoes {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-#historico-movimentacoes .item-movimentacao{
+#historico-movimentacoes .item-movimentacao {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -308,14 +309,25 @@ body {
     color: var(--cinza);
 }
 
-.item-movimentacao .entrada{
+.item-movimentacao .entrada {
     color: var(--borda-ao-focar);
     font-weight: bold;
 }
-.item-movimentacao .saida{
+
+.item-movimentacao .saida {
     color: var(--vermelho);
     font-weight: bold;
 }
-.saida p, .entrada p{
+
+.saida p,
+.entrada p {
     color: inherit;
+}
+
+#exibir-historico {
+    cursor: pointer;
+    color: var(--cinza);
+    padding: 10px;
+    font-weight: bold;
+
 }

@@ -1,22 +1,5 @@
 {
-  "produtos": [
-    {
-      "id": "eKfwjO5zZk4",
-      "nome": "iogurt",
-      "preco": 100,
-      "emEstoque": true,
-      "quantidade": 3,
-      "icone": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWtleWJvYXJkIHByZXZpZXctaWNvbiI+PHBhdGggZD0iTTEwIDhoLjAxIi8+PHBhdGggZD0iTTEyIDEyaC4wMSIvPjxwYXRoIGQ9Ik0xNCA4aC4wMSIvPjxwYXRoIGQ9Ik0xNiAxMmguMDEiLz48cGF0aCBkPSJNMTggOGguMDEiLz48cGF0aCBkPSJNNiA4aC4wMSIvPjxwYXRoIGQ9Ik03IDE2aDEwIi8+PHBhdGggZD0iTTggMTJoLjAxIi8+PHJlY3Qgd2lkdGg9IjIwIiBoZWlnaHQ9IjE2IiB4PSIyIiB5PSI0IiByeD0iMiIvPjwvc3ZnPg=="
-    },
-    {
-      "id": "ic6CXwNZQSY",
-      "nome": "mouse",
-      "preco": 200,
-      "emEstoque": true,
-      "quantidade": 2,
-      "icone": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IS0tIFVwbG9hZGVkIHRvOiBTVkcgUmVwbywgd3d3LnN2Z3JlcG8uY29tLCBHZW5lcmF0b3I6IFNWRyBSZXBvIE1peGVyIFRvb2xzIC0tPg0KPHN2ZyB3aWR0aD0iODAwcHgiIGhlaWdodD0iODAwcHgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCjxwYXRoIGQ9Ik0xMiA5VjNNMTIgM0MxNS4zMTM3IDMgMTggNS42ODYyOSAxOCA5VjE1QzE4IDE4LjMxMzcgMTUuMzEzNyAyMSAxMiAyMUM4LjY4NjI5IDIxIDYgMTguMzEzNyA2IDE1VjlDNiA1LjY4NjI5IDguNjg2MjkgMyAxMiAzWiIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPg0KPC9zdmc+"
-    }
-  ],
+  "produtos": [],
   "movimentacao": [
     {
       "id": "5wIif4Mt2No",
@@ -41,6 +24,22 @@
       "tipo": "saida",
       "quantidade": 2,
       "data": "2026-10-22T16:07:18.889Z"
+    },
+    {
+      "id": "I9cxoPiArfw",
+      "idProduto": "nV2EEnC3LYs",
+      "nomeProduto": "caixa",
+      "tipo": "saida",
+      "quantidade": 30,
+      "data": "2026-10-22T20:19:18.760Z"
+    },
+    {
+      "id": "NbwHg7q1bzs",
+      "idProduto": "nV2EEnC3LYs",
+      "nomeProduto": "caixa",
+      "tipo": "entrada",
+      "quantidade": 21,
+      "data": "2026-10-22T20:19:38.012Z"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
