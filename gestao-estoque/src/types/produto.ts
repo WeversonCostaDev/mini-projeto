@@ -1,5 +1,5 @@
 export type produto = {
-    id: number,
+    id: string,
     nome: string,
     preco: number,
     emEstoque: boolean,
@@ -11,7 +11,7 @@ export type tipoMovimentacao = "entrada" | "saida";
 
 export interface movimentacao {
     id: number,
-    idProduto: number;
+    idProduto: string;
     nomeProduto: string;
     tipo:tipoMovimentacao;
     quantidade: number;

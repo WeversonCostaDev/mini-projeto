@@ -40,6 +40,134 @@
       "tipo": "entrada",
       "quantidade": 21,
       "data": "2026-10-22T20:19:38.012Z"
+    },
+    {
+      "id": "cfsSm_0GjFM",
+      "idProduto": "O9r8jvnE3Yw",
+      "nomeProduto": "iogurt",
+      "tipo": "entrada",
+      "quantidade": 60,
+      "data": "2026-10-27T01:07:58.359Z"
+    },
+    {
+      "id": "3V88_6nZTdw",
+      "idProduto": "O9r8jvnE3Yw",
+      "nomeProduto": "iogurt",
+      "tipo": "saida",
+      "quantidade": 65,
+      "data": "2026-10-27T01:08:23.139Z"
+    },
+    {
+      "id": "eZ-78kKRqTE",
+      "idProduto": "j7a3S_Estwg",
+      "nomeProduto": "teclado",
+      "tipo": "saida",
+      "quantidade": 6,
+      "data": "2026-10-27T14:06:49.998Z"
+    },
+    {
+      "id": "Dgzbnb4rq30",
+      "idProduto": "j7a3S_Estwg",
+      "nomeProduto": "teclado",
+      "tipo": "entrada",
+      "quantidade": 2,
+      "data": "2026-10-27T14:06:58.198Z"
+    },
+    {
+      "id": "-rxVxBpiYn4",
+      "idProduto": "IeMNm2EopiI",
+      "nomeProduto": "mouse",
+      "tipo": "entrada",
+      "quantidade": 50,
+      "data": "2026-10-27T14:31:13.399Z"
+    },
+    {
+      "id": "RqTVv8eYQdE",
+      "idProduto": "IeMNm2EopiI",
+      "nomeProduto": "mouse",
+      "tipo": "saida",
+      "quantidade": 40,
+      "data": "2026-10-27T14:31:22.268Z"
+    },
+    {
+      "id": "9KNUCIakFdM",
+      "idProduto": "AfSS20JbVAY",
+      "nomeProduto": "mouse ALTERADO",
+      "tipo": "entrada",
+      "quantidade": 10,
+      "data": "2026-10-27T14:43:19.133Z"
+    },
+    {
+      "id": "xPuHUtuaBek",
+      "idProduto": "AfSS20JbVAY",
+      "nomeProduto": "mouse ALTERADO",
+      "tipo": "saida",
+      "quantidade": 3,
+      "data": "2026-10-27T14:43:25.315Z"
+    },
+    {
+      "id": "Q1LjHTwyn4g",
+      "idProduto": "AfSS20JbVAY",
+      "nomeProduto": "mouse ALTERADO",
+      "tipo": "entrada",
+      "quantidade": 40,
+      "data": "2026-10-27T14:47:36.645Z"
+    },
+    {
+      "id": "QL7frNr9qX8",
+      "idProduto": "AfSS20JbVAY",
+      "nomeProduto": "mouse ALTERADO",
+      "tipo": "saida",
+      "quantidade": 6,
+      "data": "2026-10-27T14:47:43.028Z"
+    },
+    {
+      "id": "nFPzG1sr6tA",
+      "idProduto": "AfSS20JbVAY",
+      "nomeProduto": "mouse ALTERADO",
+      "tipo": "entrada",
+      "quantidade": 5,
+      "data": "2026-10-27T14:50:58.638Z"
+    },
+    {
+      "id": "zCZvrRKm3yw",
+      "idProduto": "AfSS20JbVAY",
+      "nomeProduto": "mouse ALTERADO",
+      "tipo": "saida",
+      "quantidade": 1,
+      "data": "2026-10-27T14:51:05.072Z"
+    },
+    {
+      "id": "sY-LC5ZRdls",
+      "idProduto": "AfSS20JbVAY",
+      "nomeProduto": "mouse ALTERADO",
+      "tipo": "entrada",
+      "quantidade": 5,
+      "data": "2026-10-27T14:53:14.941Z"
+    },
+    {
+      "id": "ES4Huvir8AQ",
+      "idProduto": "AfSS20JbVAY",
+      "nomeProduto": "mouse ALTERADO",
+      "tipo": "saida",
+      "quantidade": 6,
+      "data": "2026-10-27T14:53:22.771Z"
+    },
+    {
+      "id": "S5pJY1unk3I",
+      "idProduto": "AfSS20JbVAY",
+      "nomeProduto": "mouse ALTERADO",
+      "tipo": "entrada",
+      "quantidade": 2,
+      "data": "2026-10-27T14:53:38.835Z"
+    },
+    {
+      "id": "XHNco4OMzDY",
+      "idProduto": "AfSS20JbVAY",
+      "nomeProduto": "mouse ALTERADO",
+      "tipo": "saida",
+      "quantidade": 39,
+      "data": "2026-10-27T14:53:56.103Z"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
