@@ -12,7 +12,7 @@ export async function buscarProdutos(): Promise<produto[]> {
     return produtos;
 }
 
-export async function excluirProduto(produtoId:number) {
+export async function excluirProduto(produtoId:string) {
     const resposta = await fetch(
             `http://localhost:3000/produtos/${produtoId}`,
             {

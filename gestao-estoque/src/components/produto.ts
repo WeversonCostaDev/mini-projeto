@@ -26,6 +26,7 @@ export async function exibirProdutos(produtos: produto[]): Promise<void> {
     const areaProdutos = document.getElementById("area-produtos");
 
     if (!areaProdutos) throw new Error("Elemento de id #area-produtos não encontrado!");
+    
     areaProdutos.innerHTML = "";
     produtos.forEach(produto => exibirProduto(produto, areaProdutos));
 }

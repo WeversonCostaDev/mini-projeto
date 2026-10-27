@@ -17,3 +17,5 @@ export interface movimentacao {
     quantidade: number;
     data: Date;
 }
+
+export type arquivoOpcional = File | null;

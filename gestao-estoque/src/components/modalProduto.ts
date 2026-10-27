@@ -1,4 +1,4 @@
-import type { produto } from "../types/produto";
+import type { produto,arquivoOpcional } from "../types/produto";
 import { converterImagemParaBase64 } from "../utils/imagem";
 import { registrarProduto, atualizarProduto } from "../services/produtoService";
 
@@ -89,13 +89,22 @@ async function salvarEdicao(): Promise<void> {
 
     const produtoId = String(formulario.dataset.produtoId);
 
+    const valorArquivo = dados.get("icone");
+    const arquivoIcone: arquivoOpcional = valorArquivo instanceof File ? valorArquivo : null;
 
     const produtoAtualizado: Partial<produto> = {
         nome: String(dados.get("nome")).trim(),
         preco: Number(dados.get("preco")),
         quantidade: Number(dados.get("quantidade")),
         emEstoque: Number(dados.get("quantidade")) > 0,
+    
     };
+
+    if(arquivoIcone){
+        const iconeAtualizado = await converterImagemParaBase64(arquivoIcone);
+        produtoAtualizado.icone = iconeAtualizado;
+    }
+
     await atualizarProduto(produtoId, produtoAtualizado);
 
     formulario.reset();
