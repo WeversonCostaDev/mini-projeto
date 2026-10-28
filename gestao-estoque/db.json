@@ -1,38 +1,62 @@
 {
   "produtos": [
     {
-      "id": "n1cZ478e1Kw",
-      "nome": "Headphone",
-      "preco": 200,
+      "id": "04Tm3zNNX7U",
+      "nome": "mouse",
+      "preco": 150,
+      "emEstoque": true,
+      "quantidade": 5,
+      "icone": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IS0tIFVwbG9hZGVkIHRvOiBTVkcgUmVwbywgd3d3LnN2Z3JlcG8uY29tLCBHZW5lcmF0b3I6IFNWRyBSZXBvIE1peGVyIFRvb2xzIC0tPg0KPHN2ZyB3aWR0aD0iODAwcHgiIGhlaWdodD0iODAwcHgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCjxwYXRoIGQ9Ik0xMiA5VjNNMTIgM0MxNS4zMTM3IDMgMTggNS42ODYyOSAxOCA5VjE1QzE4IDE4LjMxMzcgMTUuMzEzNyAyMSAxMiAyMUM4LjY4NjI5IDIxIDYgMTguMzEzNyA2IDE1VjlDNiA1LjY4NjI5IDguNjg2MjkgMyAxMiAzWiIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPg0KPC9zdmc+"
+    },
+    {
+      "id": "VzBGXihC2gE",
+      "nome": "iogurt",
+      "preco": 300,
       "emEstoque": true,
       "quantidade": 50,
-      "icone": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWhlYWRwaG9uZXMgcHJldmlldy1pY29uIj48cGF0aCBkPSJNMyAxNGgzYTIgMiAwIDAgMSAyIDJ2M2EyIDIgMCAwIDEtMiAySDVhMiAyIDAgMCAxLTItMnYtN2E5IDkgMCAwIDEgMTggMHY3YTIgMiAwIDAgMS0yIDJoLTFhMiAyIDAgMCAxLTItMnYtM2EyIDIgMCAwIDEgMi0yaDMiLz48L3N2Zz4="
+      "icone": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXJlZnJlc2gtY3cgcHJldmlldy1pY29uIj48cGF0aCBkPSJNMyAxMmE5IDkgMCAwIDEgOS05IDkuNzUgOS43NSAwIDAgMSA2Ljc0IDIuNzRMMjEgOCIvPjxwYXRoIGQ9Ik0yMSAzdjVoLTUiLz48cGF0aCBkPSJNMjEgMTJhOSA5IDAgMCAxLTkgOSA5Ljc1IDkuNzUgMCAwIDEtNi43NC0yLjc0TDMgMTYiLz48cGF0aCBkPSJNOCAxNkgzdjUiLz48L3N2Zz4="
     }
   ],
   "movimentacao": [
     {
-      "id": "hexXuAG7deM",
-      "idProduto": "fj3DUubRzls",
+      "id": "0Ljgrhrhr8M",
+      "idProduto": "04Tm3zNNX7U",
+      "nomeProduto": "mouse",
+      "tipo": "saida",
+      "quantidade": 30,
+      "data": "2026-10-28T19:19:01.923Z"
+    },
+    {
+      "id": "U10su8KedZk",
+      "idProduto": "04Tm3zNNX7U",
       "nomeProduto": "mouse",
       "tipo": "entrada",
-      "quantidade": 30,
-      "data": "2026-10-27T15:08:01.526Z"
+      "quantidade": 10,
+      "data": "2026-10-28T19:19:27.122Z"
     },
     {
-      "id": "n4ZfRPuaAqs",
-      "idProduto": "fj3DUubRzls",
+      "id": "UMtVEtDQpw0",
+      "idProduto": "04Tm3zNNX7U",
       "nomeProduto": "mouse",
       "tipo": "saida",
-      "quantidade": 20,
-      "data": "2026-10-27T15:08:12.089Z"
+      "quantidade": 30,
+      "data": "2026-10-28T23:18:47.471Z"
     },
     {
-      "id": "Zglhp4sKZW0",
-      "idProduto": "dboUek8K8jE",
-      "nomeProduto": "teclado",
+      "id": "I0nmPWPvV2U",
+      "idProduto": "04Tm3zNNX7U",
+      "nomeProduto": "mouse",
+      "tipo": "entrada",
+      "quantidade": 10,
+      "data": "2026-10-28T23:18:52.406Z"
+    },
+    {
+      "id": "_05-oLNWWm8",
+      "idProduto": "04Tm3zNNX7U",
+      "nomeProduto": "mouse",
       "tipo": "saida",
-      "quantidade": 55,
-      "data": "2026-10-27T15:08:59.878Z"
+      "quantidade": 15,
+      "data": "2026-10-28T23:19:03.119Z"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

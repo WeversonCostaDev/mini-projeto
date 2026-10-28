@@ -1,6 +1,8 @@
 import type { tipoMovimentacao, produto, movimentacao } from "../types/produto";
-import { atualizarProduto } from "../services/produtoService";
+import { ProdutoApi } from "../services/produtoService";
 import { adicionarMovimentacao, buscarMovimentacao } from "../services/movimentacaoService";
+
+const produtoApi = new ProdutoApi();
 
 export async function persistirQuantidade(quantidade: number, produto: produto, operador: string): Promise<void> {
     let operacao: number;
@@ -18,7 +20,7 @@ export async function persistirQuantidade(quantidade: number, produto: produto, 
     {
         quantidade: operacao,
     };
-    await atualizarProduto(produto.id, produtoAtualizado);
+    await produtoApi.atualizarProduto(produto.id, produtoAtualizado);
 
     registrarMovimentacao(produto.id, produto.nome, tipoMovimentacao, quantidade);
     window.location.reload();

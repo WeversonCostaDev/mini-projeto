@@ -1,6 +1,8 @@
 import type { produto,arquivoOpcional } from "../types/produto";
 import { converterImagemParaBase64 } from "../utils/imagem";
-import { registrarProduto, atualizarProduto } from "../services/produtoService";
+import { ProdutoApi } from "../services/produtoService";
+
+const produtoApi = new ProdutoApi();
 
 export function previa(): void {
     const nomeInput = document.getElementById("nome") as HTMLInputElement;
@@ -78,11 +80,11 @@ async function cadastrar(event: SubmitEvent): Promise<void> {
         quantidade: Number(dados.get("quantidade")),
         icone: imagemTratada!,
     }
-    await registrarProduto(produto);
+    await produtoApi.registrarProduto(produto);
 }
 
-async function salvarEdicao(): Promise<void> {
-
+async function salvarEdicao(event:SubmitEvent): Promise<void> {
+    event.preventDefault();
     const formulario = document.querySelector<HTMLFormElement>("#formulario-editar-produto");
     if (!formulario) throw new Error("Formulário não encontrado.");
     const dados = new FormData(formulario);
@@ -90,6 +92,8 @@ async function salvarEdicao(): Promise<void> {
     const produtoId = String(formulario.dataset.produtoId);
 
     const valorArquivo = dados.get("icone");
+
+    //Narrowing: verificação segura de tipos.
     const arquivoIcone: arquivoOpcional = valorArquivo instanceof File ? valorArquivo : null;
 
     const produtoAtualizado: Partial<produto> = {
@@ -100,12 +104,17 @@ async function salvarEdicao(): Promise<void> {
     
     };
 
-    if(arquivoIcone){
+    //Narrowing: verificação segura de tipos.
+    if(arquivoIcone && arquivoIcone.size > 0){
         const iconeAtualizado = await converterImagemParaBase64(arquivoIcone);
         produtoAtualizado.icone = iconeAtualizado;
     }
 
-    await atualizarProduto(produtoId, produtoAtualizado);
+    console.log("Arquivo selecionado:", arquivoIcone?.name);
+    console.log("Dados enviados:", produtoAtualizado);
+
+    await produtoApi.atualizarProduto(produtoId, produtoAtualizado);
+    console.log("Dados enviados para atualização:", produtoAtualizado);
 
     formulario.reset();
 

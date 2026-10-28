@@ -1,5 +1,5 @@
 
-import { buscarProdutos } from "./services/produtoService.ts";
+import { ProdutoApi } from "./services/produtoService.ts";
 import {
     barraPesquisa,
     exibirProdutos,
@@ -19,9 +19,11 @@ import {
     ativarHistorico,    
  } from "./components/movimentacao.ts";
 
+const produtoApi = new ProdutoApi();
+
 async function inicializar(): Promise<void> {
     try {
-        const produtos = await buscarProdutos();
+        const produtos = await produtoApi.buscarProdutos();
 
         await exibirProdutos(produtos);
         atualizaContagem(produtos);

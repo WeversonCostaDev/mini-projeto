@@ -1,7 +1,9 @@
 import type {produto} from "../types/produto.ts";
-import { buscarProdutos, excluirProduto } from "../services/produtoService.ts";
+import { ProdutoApi } from "../services/produtoService.ts";
 import { editarProduto } from "./modalProduto.ts";
 import { persistirQuantidade } from "./movimentacao.ts";
+
+const produtoApi = new ProdutoApi();
 
 export function barraPesquisa(): void {
     const barra = document.getElementById("pesquisa") as HTMLInputElement;
@@ -14,7 +16,7 @@ export function barraPesquisa(): void {
         temporizador = window.setTimeout(async () => {
 
             const textoPesquisa = barra.value;
-            const produtos: produto[] = await buscarProdutos();
+            const produtos: produto[] = await produtoApi.buscarProdutos();
             const produtosFiltrados = produtos.filter(p => p.nome.includes(textoPesquisa));
             exibirProdutos(produtosFiltrados);
         }, 1000);
@@ -68,6 +70,7 @@ export function exibirProduto(produto: produto, areaProdutos: HTMLElement): void
 
 function aplicaEfeitoBotoes(card: HTMLElement, produto: produto): void {
     const modalProduto = document.getElementById("modal-produto");
+
     const botaoEditar = card.querySelector<HTMLButtonElement>(".botao-editar");
     const botaoExcluir = card.querySelector<HTMLButtonElement>(".botao-excluir");
 
@@ -82,7 +85,7 @@ function aplicaEfeitoBotoes(card: HTMLElement, produto: produto): void {
     });
 
     botaoExcluir.addEventListener("click", async () => {
-        excluirProduto(produto.id);
+        produtoApi.excluirProduto(produto.id);
         window.location.reload();
     });
 
@@ -115,7 +118,6 @@ function aplicaEfeitoBotoes(card: HTMLElement, produto: produto): void {
 export function atualizaContagem(produtos: produto[]): void {
     const quantidades = document.querySelectorAll(".menu-navegacao .quantidade");
     quantidades[0].textContent = `${produtos.length}`;
-
 
     const totalUnidades = produtos.reduce(
         (total, produto) => total + produto.quantidade, 0);
